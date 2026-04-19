@@ -4,6 +4,7 @@
 
 const TelegramBot = require("node-telegram-bot-api")
 const nodemailer = require("nodemailer")
+const { pr } = require('./mess.js');
 
 // ===== CONFIG =====
 const TOKEN = "ISI_TOKEN"
@@ -38,27 +39,11 @@ bot.onText(/\/fixred (.+)/, async (msg, match) => {
   }
 
   try {
-    const isi = `
-السلام عليكم ورحمة الله وبركاته
-
-اسمي Violina وأواجه مشكلة في تسجيل الدخول.
-
-تظهر رسالة:
-"Login not available now"
-
-رقمي:
-${nomor}
-
-يرجى المساعدة.
-
-شكراً لكم.
-`
-
     await transporter.sendMail({
       from: EMAIL,
       to: TUJUAN,
       subject: `Login Issue - ${nomor}`,
-      text: isi
+      text: pr(`${nomor})
     })
 
     bot.sendMessage(
